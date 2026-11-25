@@ -7,7 +7,7 @@ import { existsSync } from "node:fs";
 import { mkdtemp, readFile, realpath, rm, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { exportDesignTool } from "./export-design.js";
+import { exportDesignTool, exportRefusal, pinsOnSeveralNets } from "./export-design.js";
 import { CLI_ONLY_TOOLS, runQuery, toolHelp, toolNamed } from "./query.js";
 import { callTool, findTool, TOOLS, type AnyToolDefinition } from "../tools/index.js";
 import { serviceContextFromEnvironment } from "../service/context.js";
@@ -185,6 +185,68 @@ describe("export_design", () => {
       type: "vendor",
       source: { vendor: "KiCad", fileType: ".kicad_pro" },
     });
+  });
+});
+
+describe("export_design refuses a design the file cannot hold", () => {
+  // LABCOMM_PROJECTON.DSN: an LM324 whose supply pin 4 is wired to +10V on
+  // one section and to another net on the next. The parsed netlist lists the
+  // pin under both; exporting it wrote a file the reader then rejected (#327).
+  const twoNets = {
+    nets: { "+10V": { U10: ["4"], R1: ["1"] }, N5769: { U10: ["4"], R2: ["1"] } },
+    components: { U10: { pins: { "4": "N5769" } }, R1: { pins: { "1": "+10V" } } },
+  };
+
+  it("finds every pin that more than one net lists", () => {
+    expect([...pinsOnSeveralNets(twoNets)]).toEqual([["U10.4", ["+10V", "N5769"]]]);
+    expect(
+      pinsOnSeveralNets({ nets: { A: { R1: ["1"] }, B: { R1: ["2"] } }, components: {} }).size
+    ).toBe(0);
+  });
+
+  it("names the pin and its nets, as Capture's own check does", () => {
+    expect(exportRefusal(twoNets)).toBe(
+      "U10.4 is on 2 nets (+10V, N5769). A Universal Netlist gives each pin one net, so this design cannot be exported until each pin is wired to one net."
+    );
+  });
+
+  it("says so when a pin is wired on one section and left unconnected on another", () => {
+    // SCR-236.dsn: a 74HC14 draws supply pin 14 on three sections and wires one.
+    const refusal = exportRefusal({
+      nets: { NC: { U9: ["14"] }, IN_VCC: { U9: ["14"] } },
+      components: { U9: { pins: { "14": "IN_VCC" } } },
+    });
+
+    expect(refusal).toMatch(/^U9\.14 is on IN_VCC and also left unconnected\. /);
+  });
+
+  it("names the first ten pins and counts the rest", () => {
+    const pins = Array.from({ length: 12 }, (_, i) => String(i + 1));
+    const refusal = exportRefusal({ nets: { A: { U1: pins }, B: { U1: pins } }, components: {} });
+
+    expect(refusal).toContain("U1.10 is on 2 nets (A, B); and 2 more.");
+    expect(refusal).not.toContain("U1.11 is");
+  });
+
+  it("lets a design with one net per pin through", () => {
+    expect(
+      exportRefusal({ nets: { A: { R1: ["1"] } }, components: { R1: { pins: { "1": "A" } } } })
+    ).toBeUndefined();
+  });
+
+  it.skipIf(!hasFixtures)("still refuses a reused reference designator first", async () => {
+    const source = fixturePath(
+      "cadence",
+      "opencellular-sdr-reused-refdes",
+      "OC_CONNECT1_SDR_REV_C_REUSED_REFDES.DSN"
+    );
+    const out = path.join(dir, "reused.netlist.json");
+
+    const outcome = await exportDesign(source, "--output", out);
+
+    expect(outcome.exitCode).toBe(1);
+    expect(JSON.parse(outcome.stdout!).error).toMatch(/^R4003 is used by 2 different parts/);
+    expect(existsSync(out)).toBe(false);
   });
 });
 
