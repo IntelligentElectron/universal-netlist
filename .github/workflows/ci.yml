@@ -53,7 +53,9 @@ jobs:
 
   build:
     needs: changes
-    if: needs.changes.outputs.code == 'true'
+    # Only an explicit "no code changed" skips the build. If `changes` itself
+    # fails, the build still runs, so a broken detector cannot pass the check.
+    if: ${{ !cancelled() && needs.changes.outputs.code != 'false' }}
     runs-on: ubuntu-latest
 
     steps:
