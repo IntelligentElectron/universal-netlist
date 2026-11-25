@@ -211,7 +211,7 @@ carries both sections; `gh pr create --body` skips it, so add them by hand.
 
 ## CI/CD
 
-- **CI** (`ci.yml`): One required PR run — type-check, lint, test, build
+- **CI** (`ci.yml`): One required PR run — type-check, lint, test, build. A PR that changes only Markdown outside `plugins/` and `docs/decision-tables/` skips the build; the required `build` check still passes
 - **Release** (`release.yml`): One `v*` tag run — calls CI, then signs/releases binaries
   and publishes the CI-built npm tarball
 
