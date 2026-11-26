@@ -1,0 +1,10 @@
+prior_net,new_net,outcome,next,status,note
+none,NET_A,assign the pin to the incoming net,,draft,"no prior assignment, so the incoming net is the pin's net"
+none,NET_B,assign the pin to the incoming net,,draft,"no prior assignment, so the incoming net is the pin's net"
+none,NC,assign the pin to the incoming net,,draft,"an unconnected pin is assigned to the NC net"
+NET_A,NET_A,keep the existing assignment,,draft,"re-assigning the same net is idempotent; the pin stays a member of one net"
+NET_A,NET_B,reject the conflicting assignment,,draft,"net-assembly.ts addPinToNet: a physical pin in two net memberships with only the last assignment recorded is the unreadable-JSON failure of #327"
+NET_A,NC,reject the conflicting assignment,,draft,"a pin connected to a net and also recorded unconnected is the same conflict"
+NC,NET_A,reject the conflicting assignment,,draft,"#327 repro case same-pin-unconnected-and-connected"
+NC,NET_B,reject the conflicting assignment,,draft,"a pin recorded unconnected and also connected is the same conflict"
+NC,NC,keep the existing assignment,,draft,"re-recording an unconnected pin is idempotent"
