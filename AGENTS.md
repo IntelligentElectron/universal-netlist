@@ -10,6 +10,46 @@ scripts (`scripts/dsn-vs-dat-coverage.ts`, `scripts/dsn-coverage-report.ts`, gol
 generation) still use DAT as an independent reference; do not advertise that path
 to MCP clients, the CLI, or user-facing docs.
 
+## Accuracy and evidence
+
+The goal of this project is to be the most accurate converter of vendor EDA formats there
+is: every design read exactly as its vendor's own tool reads it. The target is 100%
+accuracy with zero mistakes. Every other consideration serves that one.
+
+A vendor file format is a fact. Cadence, Altium and KiCad defined theirs; nobody on this
+project did, and nobody here holds an opinion about what a record means. A reading of a
+format is either proven correct or not yet proven. No reading is settled by preference, and
+none is the maintainer's to choose.
+
+This sets how an agent works on any parser:
+
+- **Never ask the maintainer to rule** on what a file means, on which of two readings is
+  right, or on the outcome of a decision-table cell. The maintainer sets the goal; the
+  vendor's files settle the facts. Find the evidence and decide from it.
+- **Evidence is real vendor data.** Real design files, and the vendor tool's own output for
+  them: Capture's `pstxnet.dat`, `pstchip.dat` and `pstxprt.dat`, its design-check reports,
+  a board's netlist, a schematic PDF. A synthetic input shows what our code does, and says
+  nothing about the vendor's.
+- **A behavior is settled when the evidence proves it** on every real case that reaches it,
+  with the count stated. Until then it is unproven. Say so plainly, record it as an open
+  question in the format's spec with what the data shows, and keep looking for a real file
+  that decides it.
+- **Close the loop.** Work on a parser is finished when it is verified against real files
+  and every case it touches is either proven or recorded as open. Presenting a choice to
+  the maintainer and waiting for an answer finishes nothing.
+
+Decision tables serve this, and they belong to the agent. They are its instrument for
+enumerating every case of a piece of logic, finding the edge cases, testing the code cell
+by cell, and showing that no case was left out. The maintainer does not read them and does
+not adjudicate their cells. Where the `decision-tables` plugin has a person decide a cell,
+in a table about a vendor format the vendor's files decide it:
+
+- `decided`: every real case that falls in the cell was verified against the file or the
+  vendor's output, and the note carries the evidence and the counts.
+- `draft`: derived from the code, with no real case to verify it yet. The note says so.
+- `flag` is never left standing. A cell in doubt is investigated until it is `decided`, or
+  is honestly a `draft` with its open question in the spec.
+
 ## Development
 
 ### Setup
@@ -197,6 +237,9 @@ the plugin `decision-tables@decision-tables` in `valentinozegna/decision-tables`
 offer to install it on every clone. Golden tables live in `docs/decision-tables/<feature>/`,
 and a `*.table.test.ts` beside the code replays every cell (for example
 `src/service/net-names.table.test.ts`).
+
+The tables are the agent's instrument for verifying logic, and no cell is put to the
+maintainer: [Accuracy and evidence](#accuracy-and-evidence) says how a cell is decided.
 
 ### Pull request descriptions
 
