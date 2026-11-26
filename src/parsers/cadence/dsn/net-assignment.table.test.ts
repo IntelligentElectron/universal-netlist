@@ -2,15 +2,16 @@
  * Replays the golden decision tables in docs/decision-tables/dsn-net-assignment
  * against the code, one test per cell, so the tables and the code cannot drift:
  * which root views the hierarchy expander reads, and which section's pin map a
- * placed instance of a multi-section package resolves to, where a pin's net
- * comes from, and whether an ignored pin reaches a net.
+ * placed instance of a multi-section package resolves to, which definition of
+ * a part's name a placed instance uses, where a pin's net comes from, and
+ * whether an ignored pin reaches a net.
  */
 import path from "path";
 import { describe, expect, it } from "vitest";
 import { expandHierarchy } from "./hierarchy-expander.js";
 import { buildNetConnectivity } from "./net-builder.js";
 import { pinNetSource } from "./net-pins.js";
-import { findPinMap } from "./pin-resolver.js";
+import { findPinMap, resolvePinNumber } from "./pin-resolver.js";
 import type { BlockOccurrence, HierarchyScope, HierarchyStream } from "./hierarchy-parser.js";
 import type { PageData } from "./page-parser.js";
 import type { PinMapData } from "./structure-types.js";
@@ -150,16 +151,21 @@ describe("golden table: section-pin-map", () => {
       const inst = instance(1, "U1", "PKG_0");
       const maps = new Map<string, (string | null)[]>();
       const unitRefs = new Map<string, string[]>();
-      if (row.unit_suffix === "yes") {
-        inst.pkgName = "PKG_0B.Normal";
-        maps.set("PKG_0B", SECTION_B);
-      }
+      // A suffixed instance draws section B's symbol. Where its suffix names a
+      // map, an in-range index points at section A, so the two disagree and
+      // the cell shows which one wins.
+      if (row.unit_suffix !== "no") inst.pkgName = "PKG_0B.Normal";
+      if (row.unit_suffix === "yes") maps.set("PKG_0B", SECTION_B);
+      // A part whose suffix names no map numbers its sections -1, -2.
+      const units = row.unit_suffix === "unmapped" ? ["-1", "-2"] : ["A", "B"];
       if (row.sections_listed_under !== "none") {
         const listed = nameOf[row.sections_listed_under];
-        unitRefs.set(listed, ["A", "B"]);
-        maps.set(listed + "B", SECTION_B);
+        unitRefs.set(listed, units);
+        if (row.unit_suffix === "yes") maps.set(listed + "A", SECTION_A);
+        else maps.set(listed + units[1], SECTION_B);
       }
       if (row.a_map_under !== "none") maps.set(nameOf[row.a_map_under] + "A", SECTION_A);
+      const index = row.unit_suffix === "yes" && row.section_index === "in-range" ? 0 : undefined;
 
       const expected = {
         "the section its suffix names": SECTION_B,
@@ -171,7 +177,49 @@ describe("golden table: section-pin-map", () => {
         expect(expected, `unknown outcome ${row.outcome}`).toBeDefined();
       }
 
-      expect(findPinMap(inst, maps, unitRefs, indexOf[row.section_index])).toEqual(expected);
+      expect(findPinMap(inst, maps, unitRefs, index ?? indexOf[row.section_index])).toEqual(
+        expected
+      );
+    });
+  }
+});
+
+describe("golden table: part-definition", () => {
+  const dims = ["own_library", "packages_stream", "other_library"];
+  const index = (maps: Record<string, string[]> = {}): PinMapData => ({
+    pinMaps: new Map(Object.entries(maps)),
+    cachePinMaps: new Map(Object.entries(maps)),
+    deviceUnitRefs: new Map(),
+    pinIgnores: new Map(),
+    cachePinIgnores: new Map(),
+  });
+  // Each source answers pin 1 with its own number, so the number names the source.
+  const numberOf: Record<string, string> = {
+    "its own library's definition": "OWN",
+    "the Packages/ stream's definition": "STREAM",
+    "the first definition under its name": "OTHER",
+    // No definition: the pin takes its position in the symbol.
+    "no definition": "1",
+  };
+
+  for (const row of readTable(TABLES, "part-definition").filter((r) => r.outcome !== "n/a")) {
+    it(cellName(row, dims), () => {
+      const inst = instance(1, "U1", "PART");
+      inst.t0x10s = [{ pinIndex: 1, pointX: 0, pointY: 0, wireId: 0, netId: 0 } as T0x10];
+      if (row.own_library !== "not named") inst.library = "OWN.OLB";
+
+      // The shared index holds the first Cache definition under the name,
+      // and a Packages/ stream's map ahead of it.
+      const other = row.other_library === "defines the part";
+      const pmd = index(other ? { PART: ["OTHER"] } : {});
+      if (row.packages_stream === "holds the part") pmd.pinMaps.set("PART", ["STREAM"]);
+      pmd.libraries = new Map([
+        ["OWN.OLB", index(row.own_library === "defines the part" ? { PART: ["OWN"] } : {})],
+        ...(other ? [["OTHER.OLB", index({ PART: ["OTHER"] })] as const] : []),
+      ]);
+
+      expect(numberOf[row.outcome], `unknown outcome ${row.outcome}`).toBeDefined();
+      expect(resolvePinNumber(inst.t0x10s[0], inst, pmd)).toBe(numberOf[row.outcome]);
     });
   }
 });

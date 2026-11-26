@@ -1,8 +1,8 @@
 {
   "universalNetlistSchemaVersion": 4,
   "metadata": {
-    "generatedAt": "2026-11-21T20:27:45.541Z",
-    "netlistHash": "sha256:0db55b3d42ef7f8520315b841ef082b0d22317088fdfa582c9741a98a27fcb46",
+    "generatedAt": "2026-11-25T22:58:51.142Z",
+    "netlistHash": "sha256:656d7c02e5867169207fdda19ef833007ec3f17dcb1670f943684d6b16e632b4",
     "origin": {
       "type": "vendor",
       "source": {
@@ -24204,7 +24204,7 @@
           "type": "bidirectional"
         },
         "3": {
-          "name": "AO_N",
+          "name": "A0_N",
           "net": "FX3_SSTX-",
           "type": "bidirectional"
         },
@@ -24224,7 +24224,7 @@
           "type": "bidirectional"
         },
         "7": {
-          "name": "A1_7",
+          "name": "A1_N",
           "net": "FX3_SSRX-",
           "type": "bidirectional"
         },
@@ -24548,22 +24548,22 @@
       "value": "RCLAMP0524J",
       "pins": {
         "1": {
-          "name": "IN_1",
+          "name": "IN_4",
           "net": "USB3_CONN_SSRXN",
           "type": "input"
         },
         "2": {
-          "name": "IN_2",
+          "name": "IN_3",
           "net": "USB3_CONN_SSRXP",
           "type": "input"
         },
         "3": {
-          "name": "IN_3",
+          "name": "IN_2",
           "net": "USB3_CONN_SSTXN",
           "type": "input"
         },
         "4": {
-          "name": "IN_4",
+          "name": "IN_1",
           "net": "USB3_CONN_SSTXP",
           "type": "input"
         },
@@ -27049,12 +27049,14 @@
       "value": "1M",
       "pins": {
         "1": {
+          "name": "A[0]",
           "net": "TRXFE_IN_12V",
-          "type": "passive"
+          "type": "bidirectional"
         },
         "2": {
+          "name": "B[0]",
           "net": "RF_FE_12V_PWR_CNTRL",
-          "type": "passive"
+          "type": "bidirectional"
         }
       },
       "internal_pn": "RC0402FR-071ML",
@@ -27092,12 +27094,14 @@
       "value": "150K",
       "pins": {
         "1": {
+          "name": "A[0]",
           "net": "RF_FE_12V_PWR_CNTRL",
-          "type": "passive"
+          "type": "bidirectional"
         },
         "2": {
+          "name": "B[0]",
           "net": "GND",
-          "type": "passive"
+          "type": "bidirectional"
         }
       },
       "internal_pn": "RC0402FR-07150KL",
@@ -27141,12 +27145,14 @@
       "value": "620E",
       "pins": {
         "1": {
+          "name": "A[0]",
           "net": "RF_IN_12V",
-          "type": "passive"
+          "type": "bidirectional"
         },
         "2": {
+          "name": "B[0]",
           "net": "N19265748",
-          "type": "passive"
+          "type": "bidirectional"
         }
       },
       "internal_pn": "ESR10EZPJ621",
@@ -27231,12 +27237,14 @@
       "value": "82K",
       "pins": {
         "1": {
+          "name": "A[0]",
           "net": "N19265842",
-          "type": "passive"
+          "type": "bidirectional"
         },
         "2": {
+          "name": "B[0]",
           "net": "GND",
-          "type": "passive"
+          "type": "bidirectional"
         }
       },
       "internal_pn": "RC0402FR-0782KL",

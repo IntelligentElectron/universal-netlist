@@ -1,0 +1,13 @@
+{
+  "name": "part-definition",
+  "assumes": [
+    "A placed part on a version-3 page, looked up by its package name. section-pin-map picks the section of a multi-section package within the definition this table picks",
+    "Each definition's pin map has the symbol's pin count. Where the Packages/ and Cache maps differ in length, the pin-count rule of docs/cadence-dsn-format.md §5.9 chooses between them",
+    "own_library 'not named': the instance carries no library string, because the Library string table could not be read"
+  ],
+  "dimensions": {
+    "own_library": ["defines the part", "lacks the part", "not named"],
+    "packages_stream": ["holds the part", "none"],
+    "other_library": ["defines the part", "none"]
+  }
+}

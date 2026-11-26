@@ -31,7 +31,8 @@ export function extractUnitRef(inst: PlacedInstance): string | undefined {
  * 1. Direct match (single-device packages)
  * 2. Multi-unit: name + unitRef extracted from pkgName
  * 3. Positional device assignment for multi-section components (no unit suffix)
- * Only when no spelling matches is the unit "A" map tried, for each spelling.
+ * Only when no spelling matches does a suffix that names no map fall back to
+ * the section index, and an instance with no suffix to the unit "A" map.
  */
 export function findPinMap(
   inst: PlacedInstance,
@@ -87,6 +88,21 @@ export function findPinMapKey(
     }
   }
 
+  // A suffix that names no stored map: the part's sections are listed under
+  // other names. A part numbered -1, -2, ... still draws its sections as
+  // `<package>A`, `<package>B`, ... (§5.6.3), so its suffix letter is not its
+  // section's name, and the record's section index names the section (§7.4).
+  // Only once every spelling has had its suffix lookup, so a suffix that does
+  // name a map always wins.
+  if (unitRef && deviceIndex !== undefined) {
+    for (const base of candidates) {
+      const unitRefs = deviceUnitRefs.get(base);
+      if (unitRefs && deviceIndex < unitRefs.length && pinMaps.has(base + unitRefs[deviceIndex])) {
+        return base + unitRefs[deviceIndex];
+      }
+    }
+  }
+
   // Fallback: a package whose devices are not enumerated in deviceUnitRefs
   // still has a single unit "A" entry to try. Only once every name has had
   // its positional lookup: when the sections are listed under one spelling
@@ -106,6 +122,10 @@ const lookupPin = (map: (string | null)[] | undefined, pinIndex: number): string
   return map[pinIndex - 1] ?? undefined;
 };
 
+/** The Cache definitions of the library this instance was placed from, when it names one. */
+const ownLibrary = (inst: PlacedInstance, pmd: PinMapData): PinMapData | undefined =>
+  inst.library === undefined ? undefined : pmd.libraries?.get(inst.library);
+
 /**
  * Which stored pin map applies to this instance, and the flags that go with it.
  *
@@ -118,12 +138,23 @@ const lookupPin = (map: (string | null)[] | undefined, pinIndex: number): string
  * Ignore flag consistent. The two streams store different pin counts under the
  * same key, so reading the number from one and the flag from the other indexes
  * two different pins.
+ *
+ * Before either, the instance's own definition: the Cache keeps one per name
+ * and source library, and the instance names the library it was placed from
+ * (§5.6). Capture's exports follow that definition where another library's,
+ * or the `Packages/` stream's, differs under the same name.
  */
 function selectPinMap(
   inst: PlacedInstance,
   pmd: PinMapData,
   deviceIndex: number | undefined
 ): { map: (string | null)[]; ignores: boolean[] | undefined } | undefined {
+  const own = ownLibrary(inst, pmd);
+  const ownKey = own && findPinMapKey(inst, own.cachePinMaps, own.deviceUnitRefs, deviceIndex);
+  if (own && ownKey !== undefined) {
+    return { map: own.cachePinMaps.get(ownKey)!, ignores: own.cachePinIgnores.get(ownKey) };
+  }
+
   const packageKey = findPinMapKey(inst, pmd.pinMaps, pmd.deviceUnitRefs, deviceIndex);
   const packageMap = packageKey === undefined ? undefined : pmd.pinMaps.get(packageKey);
 
@@ -169,10 +200,15 @@ export function isPinIgnored(
  * Whether the instance is a section of a package with several devices. There
  * an ignored slot is a pad that section does not have, never a shorted one.
  */
-export const isMultiSection = (inst: PlacedInstance, pmd: PinMapData): boolean =>
-  [inst.sourcePackage, inst.sourcePackage.replace(/_\d+$/, "")].some((name) =>
-    pmd.deviceUnitRefs.has(name)
-  );
+export const isMultiSection = (inst: PlacedInstance, pmd: PinMapData): boolean => {
+  const names = [inst.sourcePackage, inst.sourcePackage.replace(/_\d+$/, "")];
+  // The instance's own library decides where it defines the package (§5.6).
+  const own = ownLibrary(inst, pmd);
+  if (own && names.some((name) => own.cachePinMaps.has(name) || own.deviceUnitRefs.has(name))) {
+    return names.some((name) => own.deviceUnitRefs.has(name));
+  }
+  return names.some((name) => pmd.deviceUnitRefs.has(name));
+};
 
 /** Whether the part's PACK_SHORT ties this pin to others (§5.8). */
 export const isPackShorted = (pin: T0x10, inst: PlacedInstance): boolean =>
@@ -249,16 +285,15 @@ export function resolvePinNumber(
  * Map each PlacedInstance dbId to its 0-based section index within a
  * multi-section package (resistor packs, transistor arrays, multi-gate logic).
  *
- * The index is `PlacedInstance.sectionIndex`, read from the binary. Instances
- * whose pkgName already carries a unit suffix are skipped: those resolve their
- * Device by that suffix and never consult a positional index.
+ * The index is `PlacedInstance.sectionIndex`, read from the binary. An
+ * instance whose pkgName carries a unit suffix resolves its Device by that
+ * suffix first, and by this index only when the suffix names no stored map.
  */
 export function buildDeviceIndexMap(pages: PageData[]): Map<number, number> {
   const result = new Map<number, number>();
   for (const page of pages) {
     for (const inst of page.placedInstances) {
       if (!inst.reference || !isValidRefdes(inst.reference)) continue;
-      if (extractUnitRef(inst)) continue;
       result.set(inst.dbId, inst.sectionIndex);
     }
   }

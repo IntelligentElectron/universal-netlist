@@ -8,7 +8,12 @@
  */
 
 import { BinaryReader } from "./binary-reader.js";
-import { StructureType, type CachedLibraryPart, type PinMapData } from "./structure-types.js";
+import {
+  StructureType,
+  libraryPartKey,
+  type CachedLibraryPart,
+  type PinMapData,
+} from "./structure-types.js";
 import type { PrefixPropertyPair } from "./generic-parser.js";
 import { parsePackage, parseLibraryPart } from "./structures.js";
 
@@ -89,6 +94,28 @@ function indexCachePackage(pkg: import("./structures.js").Package, pmd: PinMapDa
 }
 
 /**
+ * The index of one source library's own package definitions: the same maps as
+ * the shared index, holding that library's Cache packages alone.
+ */
+function libraryIndex(pmd: PinMapData, library: string): PinMapData {
+  if (!pmd.libraries) pmd.libraries = new Map();
+  let own = pmd.libraries.get(library);
+  if (!own) {
+    const pinMaps = new Map<string, (string | null)[]>();
+    const pinIgnores = new Map<string, boolean[]>();
+    own = {
+      pinMaps,
+      cachePinMaps: pinMaps,
+      deviceUnitRefs: new Map(),
+      pinIgnores,
+      cachePinIgnores: pinIgnores,
+    };
+    pmd.libraries.set(library, own);
+  }
+  return own;
+}
+
+/**
  * Index a LibraryPart's pin names, under its own name and under the
  * suffix-stripped form other instances refer to it by.
  *
@@ -99,6 +126,10 @@ function indexCachePackage(pkg: import("./structures.js").Package, pmd: PinMapDa
  * numbering-as-names of the other variant, which is then discarded for matching
  * the pin number. `exactNames` records which keys a part claimed under its own
  * name so a later alias cannot displace it and an alias cannot outrank it.
+ *
+ * With `library`, the part is indexed a second time under that library's key
+ * for each name, by the same rules: the Cache can hold another library's part
+ * under the same name, and an instance uses its own library's (§5.6).
  */
 export function indexLibraryPart(
   lp: {
@@ -110,7 +141,8 @@ export function indexLibraryPart(
     properties?: PrefixPropertyPair[];
   },
   cachedParts: Map<string, CachedLibraryPart>,
-  exactNames: Set<string>
+  exactNames: Set<string>,
+  library?: string
 ): void {
   const entry: CachedLibraryPart = {
     pinNames: lp.pinNames,
@@ -120,14 +152,17 @@ export function indexLibraryPart(
     properties: lp.properties,
   };
 
-  if (!exactNames.has(lp.name)) {
-    cachedParts.set(lp.name, entry);
-    exactNames.add(lp.name);
-  }
-
   const stripped = lp.name.replace(/_\d+(?=\.)/, "");
-  if (stripped !== lp.name && !cachedParts.has(stripped)) {
-    cachedParts.set(stripped, entry);
+  const keyed: ((name: string) => string)[] = [(name) => name];
+  if (library !== undefined) keyed.push((name) => libraryPartKey(library, name));
+  for (const key of keyed) {
+    const own = key(lp.name);
+    if (!exactNames.has(own)) {
+      cachedParts.set(own, entry);
+      exactNames.add(own);
+    }
+    const alias = key(stripped);
+    if (stripped !== lp.name && !cachedParts.has(alias)) cachedParts.set(alias, entry);
   }
 }
 
@@ -216,7 +251,7 @@ function scanForStructures(
  */
 export function walkCacheTables(
   buffer: Buffer,
-  visit: (type: number, name: string, record: Buffer) => void
+  visit: (type: number, name: string, record: Buffer, library: string) => void
 ): number {
   const reader = new BinaryReader(buffer);
   for (let table = 0; table < 5 && !reader.isEof(); table++) {
@@ -225,13 +260,13 @@ export function walkCacheTables(
       const name = reader.readStringLenZeroTerm();
       const variants = reader.readUint16();
       for (let v = 0; v < variants; v++) {
-        reader.readStringLenZeroTerm(); // source library
+        const library = reader.readStringLenZeroTerm();
         reader.skip(8); // id, id copy
         const type = reader.readUint16();
         const start = reader.tell();
         const end = start + 9 + buffer.readUInt32LE(start + 1);
         if (end > buffer.length) throw new Error(`Cache record at ${start} runs past the stream`);
-        visit(type, name, buffer.subarray(start, end));
+        visit(type, name, buffer.subarray(start, end), library);
         reader.seek(end);
       }
     }
@@ -253,12 +288,15 @@ export function parseCacheStream(
 ): void {
   if (buffer.length <= 10) return; // five empty tables
   try {
-    walkCacheTables(buffer, (type, _name, record) => {
+    walkCacheTables(buffer, (type, _name, record, library) => {
       try {
         if (type === StructureType.Package) {
-          indexCachePackage(parsePackage(new BinaryReader(record)), pmd);
+          const pkg = parsePackage(new BinaryReader(record));
+          indexCachePackage(pkg, pmd);
+          indexCachePackage(pkg, libraryIndex(pmd, library));
         } else if (type === StructureType.LibraryPart) {
-          indexLibraryPart(parseLibraryPart(new BinaryReader(record)), cachedParts, exactNames);
+          const part = parseLibraryPart(new BinaryReader(record));
+          indexLibraryPart(part, cachedParts, exactNames, library);
         }
       } catch {
         // One record that will not parse costs that record.

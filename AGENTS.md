@@ -288,7 +288,7 @@ so it is not a source of truth and is not required reading. Treat it as read-onl
 ### Additional resources
 
 - **Cadence schemas**: `docs/olb.xsd`
-- **Coverage scripts**: `scripts/dsn-vs-dat-coverage.ts`, `scripts/dsn-coverage-report.ts`, `scripts/dsn-inspect.ts` (see `scripts/AGENTS.md`)
+- **Coverage scripts**: `scripts/dsn-vs-dat-coverage.ts`, `scripts/dsn-coverage-report.ts`, `scripts/dsn-definition-check.ts`, `scripts/dsn-inspect.ts` (see `scripts/AGENTS.md`)
 
 ## Git Guidelines
 

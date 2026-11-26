@@ -76,6 +76,64 @@ const withUnconnectedPinsEmpty = (netlist: ParsedNetlist): ParsedNetlist => {
   return { nets: netlist.nets, components, netProperties: netlist.netProperties };
 };
 
+/** How many conflicting pins a refusal names before it counts the rest. */
+const NAMED_PINS = 10;
+
+/**
+ * Every pin that more than one net lists, as `refdes.pin` with its nets.
+ *
+ * A schematic can wire one physical pin to two nets: a pin shared by the
+ * sections of a part, drawn on each and wired differently. Capture reports it
+ * as "Same Pin Number connected to more than one net" (ORCAP-1604). A parsed
+ * netlist then lists the pin under both nets, while the part's own record,
+ * and a Universal Netlist, hold one net per pin.
+ */
+export const pinsOnSeveralNets = (netlist: ParsedNetlist): Map<string, string[]> => {
+  const netsOf = new Map<string, string[]>();
+  for (const [net, refs] of Object.entries(netlist.nets)) {
+    for (const [refdes, pins] of Object.entries(refs)) {
+      for (const pin of pins) {
+        const key = `${refdes}.${pin}`;
+        const nets = netsOf.get(key);
+        if (!nets) netsOf.set(key, [net]);
+        else if (!nets.includes(net)) nets.push(net);
+      }
+    }
+  }
+  for (const [key, nets] of netsOf) if (nets.length < 2) netsOf.delete(key);
+  return netsOf;
+};
+
+/** "U2.11 is on 2 nets (AMPLIFIED, VOUT); U9.14 is on IN_VCC and also left unconnected" */
+const describePinsOnSeveralNets = (conflicts: Map<string, string[]>): string => {
+  const described = [...conflicts].slice(0, NAMED_PINS).map(([pin, nets]) => {
+    // The parsers list a pin connected to nothing under NC.
+    const wired = nets.filter((net) => net !== "NC");
+    return wired.length === 1
+      ? `${pin} is on ${wired[0]} and also left unconnected`
+      : `${pin} is on ${wired.length} nets (${wired.join(", ")})`;
+  });
+  const more = conflicts.size - described.length;
+  return described.join("; ") + (more > 0 ? `; and ${more} more` : "");
+};
+
+/**
+ * Why a loaded design cannot be written as a Universal Netlist, or undefined
+ * when it can. The file keys parts by reference designator and gives each pin
+ * one net, and the reader refuses a file that does otherwise, so a design that
+ * breaks either is refused here instead of written and then rejected on reload.
+ */
+export const exportRefusal = (netlist: ParsedNetlist): string | undefined => {
+  if (netlist.duplicateRefdes || netlist.repeatedSections) {
+    return `${describeDuplicates(netlist)}. A Universal Netlist keys parts by reference designator, so this design cannot be exported until each part has a unique reference and each section is placed once.`;
+  }
+  const conflicts = pinsOnSeveralNets(netlist);
+  if (conflicts.size > 0) {
+    return `${describePinsOnSeveralNets(conflicts)}. A Universal Netlist gives each pin one net, so this design cannot be exported until each pin is wired to one net.`;
+  }
+  return undefined;
+};
+
 export const exportDesignTool = defineTool({
   name: "export_design",
   title: "Export design as Universal Netlist JSON",
@@ -96,12 +154,9 @@ export const exportDesignTool = defineTool({
     const designPath = resolvePath(args.design, context.root);
     const loaded = await loadNetlist(designPath, args.design_variant, context);
     if ("error" in loaded) return loaded;
-    // A Universal Netlist keys parts by refdes, so it has no way to hold two.
-    if (loaded.duplicateRefdes || loaded.repeatedSections) {
-      return {
-        error: `${describeDuplicates(loaded)}. A Universal Netlist keys parts by reference designator, so this design cannot be exported until each part has a unique reference and each section is placed once.`,
-      };
-    }
+    // A Universal Netlist keys parts by refdes and gives each pin one net.
+    const refusal = exportRefusal(loaded);
+    if (refusal) return { error: refusal };
 
     // A Universal Netlist is one build already, and its provenance carries
     // over. The load above has validated the file.

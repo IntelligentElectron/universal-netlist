@@ -61,6 +61,14 @@ export interface T0x10 {
 
 export interface PlacedInstance {
   pkgName: string;
+  /**
+   * String-table index of the library the part was placed from (§7.4). The
+   * Cache keeps one definition per name and library, so this picks the
+   * instance's own among same-named ones (§5.6).
+   */
+  libraryIdx?: number;
+  /** The library `libraryIdx` names, resolved by the design parser. */
+  library?: string;
   dbId: number;
   reference: string;
   sourcePackage: string;
@@ -335,7 +343,8 @@ export function parsePlacedInstance(reader: BinaryReader): PlacedInstance {
   readPreamble(reader);
   futureData.checkpoint();
 
-  reader.skip(8); // unknown
+  reader.skip(4); // internal instance name index
+  const libraryIdx = reader.readUint32();
   const pkgName = reader.readStringLenZeroTerm();
   const dbId = reader.readUint32();
   const box = readBox(reader);
@@ -372,6 +381,7 @@ export function parsePlacedInstance(reader: BinaryReader): PlacedInstance {
 
   return {
     pkgName,
+    libraryIdx,
     dbId,
     reference,
     sourcePackage,

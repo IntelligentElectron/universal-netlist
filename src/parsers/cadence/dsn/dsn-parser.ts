@@ -131,86 +131,14 @@ export function parseDsnPages(
   }
 }
 
-/** Parse a design's streams into a ParsedNetlist, with the pages it was built from. */
-function parseDsnStreams(
+/**
+ * Read the design's part definitions: each package's pin maps and each
+ * symbol's pin names, from the `Packages/` streams and the Cache (§5).
+ */
+export function readPartDefinitions(
   ole: DsnReader,
-  entries: OleDirectoryPath[],
-  library: Buffer | undefined,
-  options?: ParseDesignOptions
-): {
-  netlist: ParsedNetlist;
-  pages: PageData[];
-  coordMaps: PageCoordMap[];
-  pins: PinInfo[];
-  strLst: string[];
-  /** Part keys folded into another by the section merge, to the key they became. */
-  refdesRenames: Map<string, string>;
-} {
-  // Each view's Hierarchy stream is its occurrence tree: the root schematic's
-  // nets and parts, and one nested scope per placement of every hierarchical
-  // block. Best-effort: a view whose stream will not parse is read flat.
-  const roots: HierarchyStream[] = [];
-  for (const entry of entries) {
-    if (!/^Views\/[^/]+\/Hierarchy\/Hierarchy$/.test(entry.path) || entry.entry.type !== 2)
-      continue;
-    try {
-      roots.push(parseHierarchyStream(ole.readStreamByPath(entry.path)));
-    } catch {
-      // The pages still parse; they keep their inline references and flat nets.
-    }
-  }
-
-  // Parse all Page streams, grouped by the schematic folder each sits in.
-  const pagesBySchematic = new Map<string, PageData[]>();
-  for (const entry of entries) {
-    const match = /^Views\/([^/]+)\/Pages\//.exec(entry.path);
-    if (!match || entry.entry.type !== 2) continue;
-    const schematic = match[1].toLowerCase();
-    const list = pagesBySchematic.get(schematic) ?? [];
-    list.push({ ...parsePage(ole.readStreamByPath(entry.path)), schematic: match[1] });
-    pagesBySchematic.set(schematic, list);
-  }
-
-  // Each connector's connection point, from its cached symbol (§7.7, §11.4).
-  // Best-effort: without the Cache, pins join connectors by their box instead.
-  const connectors = [...pagesBySchematic.values()]
-    .flat()
-    .flatMap((page) => [...page.globals, ...page.ports, ...page.offPageConnectors]);
-  const cacheStream = entries.find((e) => e.path === "Cache" && e.entry.type === 2);
-  if (cacheStream && connectors.length > 0) {
-    try {
-      const symbols = readCacheSymbols(
-        ole.readStreamByPath(cacheStream.path),
-        new Set(connectors.map((sym) => sym.name)),
-        CONNECTOR_SYMBOL_TYPES
-      );
-      for (const sym of connectors) sym.connection = connectionPoint(sym, symbols);
-    } catch {
-      // Pins join connectors by their box.
-    }
-  }
-
-  // Parse Library stream for strLst string table, and the root schematic a
-  // design names, which picks one root when the file holds several.
-  let strLst: string[] = [];
-  let rootSchematic: string | undefined;
-  if (library) {
-    try {
-      ({ strLst, rootSchematic } = parseLibraryStream(library));
-    } catch {
-      // Library parsing is best-effort
-    }
-  }
-
-  // One copy of a child schematic's pages per placement of the block that
-  // draws it, carrying that placement's reference designators.
-  const { pages, canonicalNetNames, occurrenceRefdes, netProperties } = expandHierarchy(
-    roots,
-    pagesBySchematic,
-    strLst,
-    rootSchematic
-  );
-
+  entries: OleDirectoryPath[]
+): { pmd: PinMapData; cachedParts: Map<string, CachedLibraryPart> } {
   // Parse Package streams for pin mapping data.
   // Each Package stream contains Device entries with pinMap arrays that map
   // T0x10 index -> physical pin number/name. We index by sourcePackage
@@ -293,6 +221,101 @@ function parseDsnStreams(
       // Cache parsing is best-effort
     }
   }
+
+  return { pmd, cachedParts };
+}
+
+/** Parse a design's streams into a ParsedNetlist, with the pages it was built from. */
+function parseDsnStreams(
+  ole: DsnReader,
+  entries: OleDirectoryPath[],
+  library: Buffer | undefined,
+  options?: ParseDesignOptions
+): {
+  netlist: ParsedNetlist;
+  pages: PageData[];
+  coordMaps: PageCoordMap[];
+  pins: PinInfo[];
+  strLst: string[];
+  /** Part keys folded into another by the section merge, to the key they became. */
+  refdesRenames: Map<string, string>;
+} {
+  // Each view's Hierarchy stream is its occurrence tree: the root schematic's
+  // nets and parts, and one nested scope per placement of every hierarchical
+  // block. Best-effort: a view whose stream will not parse is read flat.
+  const roots: HierarchyStream[] = [];
+  for (const entry of entries) {
+    if (!/^Views\/[^/]+\/Hierarchy\/Hierarchy$/.test(entry.path) || entry.entry.type !== 2)
+      continue;
+    try {
+      roots.push(parseHierarchyStream(ole.readStreamByPath(entry.path)));
+    } catch {
+      // The pages still parse; they keep their inline references and flat nets.
+    }
+  }
+
+  // Parse all Page streams, grouped by the schematic folder each sits in.
+  const pagesBySchematic = new Map<string, PageData[]>();
+  for (const entry of entries) {
+    const match = /^Views\/([^/]+)\/Pages\//.exec(entry.path);
+    if (!match || entry.entry.type !== 2) continue;
+    const schematic = match[1].toLowerCase();
+    const list = pagesBySchematic.get(schematic) ?? [];
+    list.push({ ...parsePage(ole.readStreamByPath(entry.path)), schematic: match[1] });
+    pagesBySchematic.set(schematic, list);
+  }
+
+  // Each connector's connection point, from its cached symbol (§7.7, §11.4).
+  // Best-effort: without the Cache, pins join connectors by their box instead.
+  const connectors = [...pagesBySchematic.values()]
+    .flat()
+    .flatMap((page) => [...page.globals, ...page.ports, ...page.offPageConnectors]);
+  const cacheStream = entries.find((e) => e.path === "Cache" && e.entry.type === 2);
+  if (cacheStream && connectors.length > 0) {
+    try {
+      const symbols = readCacheSymbols(
+        ole.readStreamByPath(cacheStream.path),
+        new Set(connectors.map((sym) => sym.name)),
+        CONNECTOR_SYMBOL_TYPES
+      );
+      for (const sym of connectors) sym.connection = connectionPoint(sym, symbols);
+    } catch {
+      // Pins join connectors by their box.
+    }
+  }
+
+  // Parse Library stream for strLst string table, and the root schematic a
+  // design names, which picks one root when the file holds several.
+  let strLst: string[] = [];
+  let rootSchematic: string | undefined;
+  if (library) {
+    try {
+      ({ strLst, rootSchematic } = parseLibraryStream(library));
+    } catch {
+      // Library parsing is best-effort
+    }
+  }
+
+  // Each placed part names the library it came from by string index (§7.4);
+  // the Cache keeps one definition per name and library (§5.6).
+  for (const schematicPages of pagesBySchematic.values()) {
+    for (const page of schematicPages) {
+      for (const inst of page.placedInstances) {
+        if (inst.libraryIdx !== undefined) inst.library = strLst[inst.libraryIdx];
+      }
+    }
+  }
+
+  // One copy of a child schematic's pages per placement of the block that
+  // draws it, carrying that placement's reference designators.
+  const { pages, canonicalNetNames, occurrenceRefdes, netProperties } = expandHierarchy(
+    roots,
+    pagesBySchematic,
+    strLst,
+    rootSchematic
+  );
+
+  const { pmd, cachedParts } = readPartDefinitions(ole, entries);
 
   // PACK_SHORT ties a single-section part's ignored pins to a placed pin (§5.8).
   for (const page of pages) {
